@@ -2,6 +2,9 @@
   <div class="app">
     <header>
       <h1>The<strong>Anime</strong>Database</h1>
+      <form class="search-box">
+        <input type="search" class="search-field" placeholder="Search for an anime..." required />
+      </form>
     </header>
   </div>
 </template>
@@ -9,10 +12,8 @@
 <script>
 export default {
   name: 'App',
-  components: {
-    
-  }
-}
+  components: {},
+};
 </script>
 
 <style lang="scss">
@@ -37,6 +38,7 @@ header {
     font-weight: 400;
     text-align: center;
     text-transform: uppercase;
+    margin-bottom: 30px;
 
     strong {
       color: #313131;
@@ -44,6 +46,45 @@ header {
 
     &:hover {
       color: #313131;
+    }
+  }
+
+  .search-box {
+    display: flex;
+    justify-content: center;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .search-field {
+      appearance: none;
+      background: none;
+      border: none;
+      outline: none;
+
+      background-color: #f3f3f3;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 8px;
+
+      color: #313131;
+      font-size: 20px;
+
+      transition: 0.4s;
+
+      &::placeholder {
+        color: #aaa;
+      }
+
+      &:focus,
+      &:valid {
+        color: #fff;
+        background-color: #313131;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.15);
+      }
     }
   }
 }
