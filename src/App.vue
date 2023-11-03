@@ -2,30 +2,54 @@
   <div class="app">
     <header>
       <h1>The<strong>Anime</strong>Database</h1>
-      <form class="search-box">
-        <input type="search" class="search-field" placeholder="Search for an anime..." required />
+      <form class="search-box" @submit.prevent="HandleSearch">
+        <input
+          type="search"
+          class="search-field"
+          placeholder="Search for an anime..."
+          required
+          v-model="search_query"
+        />
       </form>
     </header>
     <main>
-      <div class="cards">
-        <TheCard />
+      <div class="cards" v-if="animelist.length > 0">
+        <TheCard v-for="anime in animelist" :key="anime.mal_id" :anime="anime" />
+      </div>
+      <div class="no-results" v-else>
+        <h3>Sorry, we have no results....</h3>
       </div>
     </main>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 import TheCard from './components/TheCard.vue';
 export default {
   name: 'App',
   components: {
-    TheCard
+    TheCard,
   },
   setup() {
+    const search_query = ref('');
+    const animelist = ref([]);
+
+    const HandleSearch = async () => {
+      animelist.value = await fetch(`https://api.jikan.moe/v4/anime?q=${search_query.value}`)
+        .then((res) => res.json())
+        .then((data) => data.data);
+
+      search_query.value = '';
+    };
+
     return {
-      TheCard
-    }
-  }
+      TheCard,
+      search_query,
+      animelist,
+      HandleSearch,
+    };
+  },
 };
 </script>
 
