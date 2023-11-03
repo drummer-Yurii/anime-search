@@ -6,13 +6,26 @@
         <input type="search" class="search-field" placeholder="Search for an anime..." required />
       </form>
     </header>
+    <main>
+      <div class="cards">
+        <TheCard />
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
+import TheCard from './components/TheCard.vue';
 export default {
   name: 'App',
-  components: {},
+  components: {
+    TheCard
+  },
+  setup() {
+    return {
+      TheCard
+    }
+  }
 };
 </script>
 
@@ -86,6 +99,19 @@ header {
         box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.15);
       }
     }
+  }
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
   }
 }
 </style>
